@@ -74,7 +74,7 @@
             font-size: 84px;
         }
 
-        .links>a {
+        .links > a {
             color: #636b6f;
             padding: 0 25px;
             font-size: 13px;
@@ -91,43 +91,46 @@
 </head>
 
 <body>
-    <div class="flex-center position-ref full-height">
-        @if (Route::has('login'))
+<div class="flex-center position-ref full-height">
+    @if (Route::has('login'))
         <div class="top-right links">
             @auth
-            <a href="{{ url('/home') }}">Home</a>
+                <a href="{{ url('/home') }}">Home</a>
             @else
-            <a href="{{ route('login') }}">Login</a>
+                <a href="{{ route('login') }}">Login</a>
 
-            @if (Route::has('register'))
-            <a href="{{ route('register') }}">Register</a>
-            @endif
+                @if (Route::has('register'))
+                    <a href="{{ route('register') }}">Register</a>
+                @endif
             @endauth
         </div>
-        @endif
+    @endif
 
 
-
-        <div class="content">
-            <div class="title m-b-md">
-                <p>Welcome to</p>
-                <img src="{{asset('lte/dist/img/logo-aplas.png')}}" alt="APLAS logo" class="brand-image elevation-3" style="opacity: .8">
-            </div>
-
-            <div class="links">
-                <p>A self learning of Android applications programming with automatic checking feature</p>
-            </div>
-            <div>
-                <p class="contact">Email: <span style="font-weight: bold; font-size:13px;color:#636b6f">qulis＠polinema.ac.id</span></p>
-                <p class="info">To prevent email spam, Please replace <span style="font-weight: bold;">＠</span> with the @ mark.</p>
-            </div>
+    <div class="content">
+        <div class="title m-b-md">
+            <p>Welcome to</p>
+            <img src="{{asset('lte/dist/img/logo-aplas.png')}}" alt="APLAS logo" class="brand-image elevation-3"
+                 style="opacity: .8">
         </div>
 
-        <div class="video">
-            <iframe width="460" height="325" src="//www.youtube.com/embed/Fxb83_UFI0M" frameborder="0" allowfullscreen></iframe>
+        <div class="links">
+            <p>A self learning of Android applications programming with automatic checking feature</p>
         </div>
-
+        <div>
+            <p class="contact">Email: <span
+                    style="font-weight: bold; font-size:13px;color:#636b6f">qulis＠polinema.ac.id</span></p>
+            <p class="info">To prevent email spam, Please replace <span style="font-weight: bold;">＠</span> with the @
+                mark.</p>
+        </div>
     </div>
+
+    <div class="video">
+        <iframe width="460" height="325" src="//www.youtube.com/embed/Fxb83_UFI0M" frameborder="0"
+                allowfullscreen></iframe>
+    </div>
+
+</div>
 
 </body>
 

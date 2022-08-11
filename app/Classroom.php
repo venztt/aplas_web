@@ -7,9 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 class Classroom extends Model
 {
     //
-    protected $table='classrooms';
+    protected $table = 'classrooms';
 
-    public function owner() {
-        return $this->belongsTo(App\User::class);
-      }
+    public function owner()
+    {
+        return $this->belongsTo(User::class);
+    }
 }
