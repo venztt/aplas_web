@@ -1,6 +1,7 @@
 <?php
 
 
+use App\Http\Controllers\Java\Student\StudentJavaTaskController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -24,6 +25,13 @@ Route::group(['middleware' => ['auth', 'teacher']], function () {
 
 Route::group(['middleware' => ['auth', 'student']], function () {
     Route::get('/student', 'StudentController@index');
+
+    Route::get('/student/java', 'StudentController@index');
+});
+
+Route::group(['prefix' => 'student/java', 'as' => 'student.java.', 'middleware' => ['auth', 'student']], function () {
+    Route::get('do-task', [StudentJavaTaskController::class, 'doTask'])->name('do-task');
+    Route::post('execute', [StudentJavaTaskController::class, 'execute'])->name('execute');
 });
 
 Route::middleware(['auth'])->group(function () {

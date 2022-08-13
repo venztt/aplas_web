@@ -22,15 +22,23 @@
         <nav class="mt-2">
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                 <li class="treeview">
-                    <a href="#" class="nav-link" style="background-color:powderblue;color:black;">
+                    <a href="#" class="nav-link" style="background-color:#00b44e;color:black;">
                         <i class="nav-icon fas fa-space-shuttle"></i>
-                        <p><b>Start Learning</b></p>
+                        <p><b>Start Learning Java</b></p>
                     </a>
                     <ul role="menu" class="nav nav-pills nav-sidebar flex-column">
                         <li class="nav-item">
                             <a href="{{URL::to('student/tasks')}}" class="nav-link"><i
                                     class="nav-icon fas fa-angle-right"></i>
-                                <p>Download Materials</p>
+                                <p>Start learning</p>
+                            </a>
+                        </li>
+                    </ul>
+                    <ul role="menu" class="nav nav-pills nav-sidebar flex-column">
+                        <li class="nav-item">
+                            <a href="{{URL::to('student/tasks')}}" class="nav-link"><i
+                                    class="nav-icon fas fa-angle-right"></i>
+                                <p>Learning Results</p>
                             </a>
                         </li>
                     </ul>
