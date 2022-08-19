@@ -1,8 +1,20 @@
 $(function () {
     'use strict';
 
+    let codeMirrors = CodeMirror.fromTextArea(document.getElementById("editor"), {
+        mode: "text/x-java",
+        indentWithTabs: true,
+        smartIndent: true,
+        lineNumbers: true,
+        lineWrapping: true,
+        matchBrackets: true,
+        autofocus: true,
+        theme: "duotone-dark",
+    });
+
+    codeMirrors.setSize(null, 700);
+
     $('.btn-validate').on('click', function () {
-        let editor = $('#editor');
         let editorContainer = $('.editor-container');
 
         editorContainer.block({
@@ -18,7 +30,8 @@ $(function () {
         });
 
         $.post('/student/java/execute', {
-            '_token': $('meta[name="csrf-token"]').attr('content')
+            '_token': $('meta[name="csrf-token"]').attr('content'),
+            'code': codeMirrors.getValue()
         }, function (data) {
             console.log(data);
         }).done(function (data) {
@@ -27,15 +40,4 @@ $(function () {
     });
 });
 
-let codeMirrors = CodeMirror.fromTextArea(document.getElementById("editor"), {
-    mode: "text/x-java",
-    indentWithTabs: true,
-    smartIndent: true,
-    lineNumbers: true,
-    lineWrapping: true,
-    matchBrackets: true,
-    autofocus: true,
-    theme: "duotone-dark",
-});
 
-codeMirrors.setSize(null, 700);
