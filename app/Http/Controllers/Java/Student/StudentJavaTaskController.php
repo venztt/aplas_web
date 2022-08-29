@@ -57,6 +57,6 @@ class StudentJavaTaskController extends Controller
 
     public function runTest()
     {
-        
+
     }
 }
