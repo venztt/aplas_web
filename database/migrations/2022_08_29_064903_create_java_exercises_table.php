@@ -17,6 +17,7 @@ class CreateJavaExercisesTable extends Migration
             $table->bigIncrements('id');
             $table->string('name')->nullable();
             $table->string('grade')->nullable();
+            $table->string('module_path')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

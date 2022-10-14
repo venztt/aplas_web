@@ -28,7 +28,7 @@
                     </a>
                     <ul role="menu" class="nav nav-pills nav-sidebar flex-column">
                         <li class="nav-item">
-                            <a href="{{URL::to('student/tasks')}}" class="nav-link"><i
+                            <a href="{{ route('student.java.do-task') }}" class="nav-link"><i
                                     class="nav-icon fas fa-angle-right"></i>
                                 <p>Start learning</p>
                             </a>

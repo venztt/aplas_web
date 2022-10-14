@@ -22,6 +22,14 @@
         <nav class="mt-2">
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                 <li class="nav-item">
+                    <a href="{{ route('teacher.java.exerciseTopicUsers.index') }}" class="nav-link">
+                        <i class="nav-icon fas fa-building"></i>
+                        <p>
+                            JUnit Student Result
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
                     <a href="{{URL::to('teacher/crooms')}}" class="nav-link">
                         <i class="nav-icon fas fa-building"></i>
                         <p>

@@ -51,7 +51,7 @@
                     <div class="row">
                         <div class="col-md-6">
                             <iframe
-                                src="{{ asset('pdfjs/web/viewer.html')}}?file={{ asset('Soal Praktek Mobile 2022.pdf')}}"
+                                src="{{ asset('pdfjs/web/viewer.html')}}?file={{ asset('stream.pdf')}}"
                                 width="100%"
                                 height="700px"
                                 style="border: none;"></iframe>

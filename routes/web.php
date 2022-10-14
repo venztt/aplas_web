@@ -14,6 +14,18 @@ Route::group(['middleware' => ['auth', 'admin']], function () {
     Route::resource('/admin/resetpassword', 'ResetPasswordController');
 });
 
+Route::group(['prefix' => 'admin/java', 'as' => 'admin.java.', 'namespace' => 'Java\Admin', 'middleware' => ['auth', 'admin']], function () {
+    Route::resource('exercise', 'JavaExerciseController');
+
+    Route::resource('topic', 'JavaExerciseTopicController');
+});
+
+Route::group(['prefix' => 'teacher/java', 'as' => 'teacher.java.', 'namespace' => 'Java\Teacher', 'middleware' => ['auth', 'teacher']], function () {
+    Route::get('exercise-topic-users', 'JavaExerciseTopicUserController@index')->name('exerciseTopicUsers.index');
+
+    Route::get('exercise-topic-users/{exerciseTopicUser}', 'JavaExerciseTopicUserController@show')->name('exerciseTopicUsers.show');
+});
+
 Route::group(['middleware' => ['auth', 'teacher']], function () {
     Route::get('/teacher', 'TeacherController@index');
 

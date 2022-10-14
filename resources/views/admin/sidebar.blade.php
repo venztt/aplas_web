@@ -6,9 +6,7 @@
         <span class="brand-text font-weight-light">WebApps</span>
     </a>
 
-    <!-- Sidebar -->
     <div class="sidebar">
-        <!-- Sidebar user panel (optional) -->
         <div class="user-panel mt-3 pb-3 mb-3 d-flex">
             <div class="image">
                 <img src="{{asset('lte/dist/img/avatar5.png')}}" class="img-circle elevation-2" alt="User Image">
@@ -18,45 +16,25 @@
             </div>
         </div>
 
-        <!-- Sidebar Menu -->
         <nav class="mt-2">
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-                <!-- Add icons to the links using the .nav-icon class
-                     with font-awesome or any other icon font library -->
 
                 <li class="nav-item">
-                    <a href="{{URL::to('admin/topics')}}" class="nav-link">
+                    <a href="{{ route('admin.java.exercise.index') }}" class="nav-link">
                         <i class="nav-icon fas fa-clipboard"></i>
                         <p>
-                            Learning Topics
+                            Java Exercise
                         </p>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="{{URL::to('admin/admintasks')}}" class="nav-link">
+                    <a href="{{ route('admin.java.topic.index') }}" class="nav-link">
                         <i class="nav-icon fas fa-spinner"></i>
                         <p>
-                            Learning Tasks
+                            Java Task
                         </p>
                     </a>
                 </li>
-                <li class="nav-item">
-                    <a href="{{URL::to('admin/learning')}}" class="nav-link">
-                        <i class="nav-icon fas fa-folder"></i>
-                        <p>
-                            Learning Files
-                        </p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="{{URL::to('admin/resources')}}" class="nav-link">
-                        <i class="nav-icon fas fa-chevron-circle-right"></i>
-                        <p>
-                            Topic Resources
-                        </p>
-                    </a>
-                </li>
-
                 <li class="nav-item">
                     <a href="{{URL::to('admin/resetpassword')}}" class="nav-link">
                         <i class="nav-icon fas fa-hand-pointer"></i>
@@ -67,7 +45,5 @@
                 </li>
             </ul>
         </nav>
-        <!-- /.sidebar-menu -->
     </div>
-    <!-- /.sidebar -->
 </aside>
