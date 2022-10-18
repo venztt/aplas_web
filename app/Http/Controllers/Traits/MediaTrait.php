@@ -10,6 +10,8 @@ trait MediaTrait
     {
         if ($type) {
             $path = storage_path('app/public/java/' . $type);
+
+            $path_save = null;
             $path_save_java = null;
 
             $report = null;
@@ -57,15 +59,28 @@ trait MediaTrait
                 }
             } else {
                 $original_name = $file->getClientOriginalName();
-                $name = uniqid() . '_' . trim($original_name);
+                $name = uniqid() . '_' . trim($file->getClientOriginalName());
 
-                $file->move($path, $name);
+                $save_path = storage_path('app' . DIRECTORY_SEPARATOR . 'public' . DIRECTORY_SEPARATOR . 'java' .
+                    DIRECTORY_SEPARATOR . $type . DIRECTORY_SEPARATOR);
+
+                try {
+                    if (!file_exists($save_path)) {
+                        mkdir($save_path, 0755, true);
+                    }
+                } catch (\Exception $e) {
+
+                }
+
+                $path_save = $save_path . DIRECTORY_SEPARATOR . $name;
+                $file->move($save_path, $name);
             }
 
             return [
                 'name' => $name,
                 'original_name' => $original_name,
                 'report' => $report,
+                'file_path' => $path_save,
                 'path_save_java' => $path_save_java,
             ];
         }

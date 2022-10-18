@@ -11,15 +11,22 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="name">Topic Id</label>
-                                <input id="topicid" type="text" value="{{ $exercise->name }}" class="form-control" disabled />
+                                <input id="topicid" type="text" value="{{ $exercise->name }}" class="form-control"
+                                       disabled/>
                             </div>
                             <div class="form-group">
                                 <label for="name">Topic Name</label>
-                                <input id="name" type="text" value="{{ $exercise->grade }}" class="form-control" disabled />
+                                <input id="name" type="text" value="{{ $exercise->grade }}" class="form-control"
+                                       disabled/>
                             </div>
                             <div class="form-group">
                                 <label for="name">Module Path</label>
-                                <input id="module_path" type="text" value="{{ $exercise->module_path }}" class="form-control" disabled />
+                                @if($exercise->module_path)
+                                    <a class="btn btn-success form-control"
+                                       href="{{url('storage' . DIRECTORY_SEPARATOR . strstr($exercise->module_path, 'java'))}}">Download</a>
+                                @else
+                                    <p class="form-control">No file found</p>
+                                @endif
                             </div>
                         </div>
                     </div>

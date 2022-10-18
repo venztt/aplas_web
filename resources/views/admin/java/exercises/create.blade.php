@@ -11,7 +11,7 @@
                     <div class="card-body">
                         @if(!empty($errors->all()))
                             <div class="alert alert-danger">
-                                <ul>{{ $errors->all() }}</ul>
+                                <ul>{{ $errors->first() }}</ul>
                             </div>
                         @endif
                         <div class="row">

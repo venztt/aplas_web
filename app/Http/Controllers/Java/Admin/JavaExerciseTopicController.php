@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Java\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\Traits\MediaTrait;
 use App\Http\Requests\StoreJavaExerciseTopicRequest;
 use App\Http\Requests\UpdateJavaExerciseTopicRequest;
 use App\Models\JavaExercise;
@@ -13,6 +14,8 @@ use Yajra\DataTables\Facades\DataTables;
 
 class JavaExerciseTopicController extends Controller
 {
+
+    use MediaTrait;
 
     public function index(Request $request)
     {
@@ -43,18 +46,20 @@ class JavaExerciseTopicController extends Controller
             });
 
             $table->editColumn('file_path', function ($row) {
-                return $row->file_path ? $row->file_path  : '';
+                return $row->file_path ? '<a class="btn btn-success" href="' .
+                    url('storage' . DIRECTORY_SEPARATOR . strstr($row->file_path, 'java')) . '">Download</a>' : 'No file found';
             });
 
             $table->editColumn('test_path', function ($row) {
-                return $row->test_path ? $row->test_path  : '';
+                return $row->test_path ? '<a class="btn btn-success" href="' .
+                    url('storage' . DIRECTORY_SEPARATOR . strstr($row->test_path, 'java')) . '">Download</a>' : 'No file found';
             });
 
             $table->editColumn('java_exercise_id', function ($row) {
                 return $row->javaExercise->name ? $row->javaExercise->name  : '';
             });
 
-            $table->rawColumns(['actions', 'placeholder']);
+            $table->rawColumns(['actions', 'placeholder', 'file_path', 'test_path']);
 
             return $table->make(true);
         }
@@ -71,7 +76,19 @@ class JavaExerciseTopicController extends Controller
 
     public function store(StoreJavaExerciseTopicRequest $storeJavaExerciseTopicRequest)
     {
-        $javaExerciseTopics = JavaExerciseTopic::create($storeJavaExerciseTopicRequest->all());
+        $javaExerciseTopics = JavaExerciseTopic::create($storeJavaExerciseTopicRequest->except('file_path', 'test_path'));
+
+        if ($storeJavaExerciseTopicRequest->hasFile('file_path')) {
+            $media = $this->storeMedia($storeJavaExerciseTopicRequest->file('file_path'), 'java_file');
+
+            $javaExerciseTopics->update(['file_path' => $media['file_path']]);
+        }
+
+        if ($storeJavaExerciseTopicRequest->hasFile('test_path')) {
+            $media = $this->storeMedia($storeJavaExerciseTopicRequest->file('test_path'), 'junit_file');
+
+            $javaExerciseTopics->update(['test_path' => $media['file_path']]);
+        }
 
         return redirect()->route('admin.java.topic.index');
     }
@@ -87,7 +104,19 @@ class JavaExerciseTopicController extends Controller
 
     public function update(UpdateJavaExerciseTopicRequest $updateJavaExerciseTopicRequest, JavaExerciseTopic $topic)
     {
-        $topic->update($updateJavaExerciseTopicRequest->all());
+        $topic->update($updateJavaExerciseTopicRequest->except('file_path', 'test_path'));
+
+        if ($updateJavaExerciseTopicRequest->hasFile('file_path')) {
+            $media = $this->storeMedia($updateJavaExerciseTopicRequest->file('file_path'), 'java_file');
+
+            $topic->update(['file_path' => $media['file_path']]);
+        }
+
+        if ($updateJavaExerciseTopicRequest->hasFile('test_path')) {
+            $media = $this->storeMedia($updateJavaExerciseTopicRequest->file('test_path'), 'junit_file');
+
+            $topic->update(['test_path' => $media['file_path']]);
+        }
 
         return redirect()->route('admin.java.topic.index');
     }

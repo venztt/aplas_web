@@ -23,13 +23,16 @@ Route::group(['prefix' => 'admin/java', 'as' => 'admin.java.', 'namespace' => 'J
 Route::group(['prefix' => 'teacher/java', 'as' => 'teacher.java.', 'namespace' => 'Java\Teacher', 'middleware' => ['auth', 'teacher']], function () {
     Route::get('exercise-topic-users', 'JavaExerciseTopicUserController@index')->name('exerciseTopicUsers.index');
 
-    Route::get('exercise-topic-users/{exerciseTopicUser}', 'JavaExerciseTopicUserController@show')->name('exerciseTopicUsers.show');
+    Route::get('exercise-topic-users/{javaExercise}', 'JavaExerciseTopicUserController@show')->name('exerciseTopicUsers.show');
+
+    Route::get('exercise-topic-users/{javaExercise}/topic-adapter', 'JavaExerciseTopicUserController@topicAdapter')->name('exerciseTopicUsers.topicAdapter');
 });
 
 Route::group(['middleware' => ['auth', 'teacher']], function () {
     Route::get('/teacher', 'TeacherController@index');
 
     Route::resource('/teacher/assignstudent', 'AssignStudentController');
+
     Route::resource('/teacher/member', 'StudentMemberController');
 
     Route::resource('/teacher/crooms', 'ClassroomController');

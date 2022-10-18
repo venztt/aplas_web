@@ -21,13 +21,21 @@
                             </div>
                             <div class="form-group">
                                 <label for="name">File Path</label>
-                                <input id="file_path" type="text" value="{{ $exerciseTopic->file_path ?? ''}}"
-                                       class="form-control" disabled/>
+                                @if($exerciseTopic->file_path)
+                                    <a class="btn btn-success form-control"
+                                       href="{{url('storage' . DIRECTORY_SEPARATOR . strstr($exerciseTopic->file_path, 'java'))}}">Download</a>
+                                @else
+                                    <p class="form-control">No file found</p>
+                                @endif
                             </div>
                             <div class="form-group">
                                 <label for="name">Test Path</label>
-                                <input id="test_path" type="text" value="{{ $exerciseTopic->test_path ?? ''}}"
-                                       class="form-control" disabled/>
+                                @if($exerciseTopic->test_path)
+                                    <a class="btn btn-success form-control"
+                                       href="{{url('storage' . DIRECTORY_SEPARATOR . strstr($exerciseTopic->test_path, 'java'))}}">Download</a>
+                                @else
+                                    <p class="form-control">No file found</p>
+                                @endif
                             </div>
                             <div class="form-group">
                                 <label for="name">Exercise</label>
@@ -39,7 +47,7 @@
                 </div>
 
                 <div class="card-footer">
-                    <a href="{{ route('admin.java.topic.index') }}" class="btn btn-outline-info">Back</a>
+                    <a href="{{ route('teacher.java.exerciseTopicUser.index') }}" class="btn btn-outline-info">Back</a>
                 </div>
             </div>
         </div>

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Java\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\Traits\MediaTrait;
 use App\Http\Requests\StoreJavaExerciseRequest;
 use App\Http\Requests\UpdateJavaExerciseRequest;
 use App\Models\JavaExercise;
@@ -11,6 +12,8 @@ use Yajra\DataTables\Facades\DataTables;
 
 class JavaExerciseController extends Controller
 {
+    use MediaTrait;
+
     public function index(Request $request)
     {
         if ($request->ajax()) {
@@ -40,14 +43,15 @@ class JavaExerciseController extends Controller
             });
 
             $table->editColumn('grade', function ($row) {
-                return $row->grade ? $row->grade  : '';
+                return $row->grade ? $row->grade : '';
             });
 
             $table->editColumn('module_path', function ($row) {
-                return $row->module_path ? $row->module_path  : '';
+                return $row->module_path ? '<a class="btn btn-success" href="' .
+                    url('storage' . DIRECTORY_SEPARATOR . strstr($row->module_path, 'java')) . '">Download</a>' : 'No file found';
             });
 
-            $table->rawColumns(['actions', 'placeholder']);
+            $table->rawColumns(['actions', 'placeholder', 'module_path']);
 
             return $table->make(true);
         }
@@ -62,7 +66,13 @@ class JavaExerciseController extends Controller
 
     public function store(StoreJavaExerciseRequest $storeJavaExerciseRequest)
     {
-        $javaExercises = JavaExercise::create($storeJavaExerciseRequest->all());
+        $javaExercises = JavaExercise::create($storeJavaExerciseRequest->except('module_path'));
+
+        if ($storeJavaExerciseRequest->hasFile('module_path')) {
+            $media = $this->storeMedia($storeJavaExerciseRequest->file('module_path'), 'java_module');
+
+            $javaExercises->update(['module_path' => $media['file_path']]);
+        }
 
         return redirect()->route('admin.java.exercise.index');
     }
@@ -74,7 +84,13 @@ class JavaExerciseController extends Controller
 
     public function update(UpdateJavaExerciseRequest $updateJavaExerciseRequest, JavaExercise $exercise)
     {
-        $exercise->update($updateJavaExerciseRequest->all());
+        $exercise->update($updateJavaExerciseRequest->except('module_path'));
+
+        if ($updateJavaExerciseRequest->hasFile('module_path')) {
+            $media = $this->storeMedia($updateJavaExerciseRequest->file('module_path'), 'java_module');
+
+            $exercise->update(['module_path' => $media['file_path']]);
+        }
 
         return redirect()->route('admin.java.exercise.index');
     }
