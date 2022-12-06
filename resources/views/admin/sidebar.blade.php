@@ -18,7 +18,6 @@
 
         <nav class="mt-2">
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-
                 <li class="nav-item">
                     <a href="{{ route('admin.java.exercise.index') }}" class="nav-link">
                         <i class="nav-icon fas fa-clipboard"></i>
@@ -35,6 +34,8 @@
                         </p>
                     </a>
                 </li>
+
+                <li class="nav-header">Managements</li>
                 <li class="nav-item">
                     <a href="{{URL::to('admin/resetpassword')}}" class="nav-link">
                         <i class="nav-icon fas fa-hand-pointer"></i>

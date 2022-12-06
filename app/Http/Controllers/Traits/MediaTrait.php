@@ -57,7 +57,7 @@ trait MediaTrait
                         exec(escapeshellarg($setting->java_path . DIRECTORY_SEPARATOR . "javac.exe") .
                             " -cp " . $setting->java_junit_path . " " . $path_save_all . " 2>&1", $report);
 
-                        array_map('unlink', glob( "$path_save_java*.java"));
+                        array_map('unlink', glob("$path_save_java*.java"));
                     } catch (\Exception $e) {
                         $path_save_java = null;
                     }
@@ -77,7 +77,7 @@ trait MediaTrait
 
                 }
 
-                $path_save = $save_path . DIRECTORY_SEPARATOR . $name;
+                $path_save = $save_path . $name;
                 $file->move($save_path, $name);
             }
 

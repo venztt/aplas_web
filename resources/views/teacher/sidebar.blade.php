@@ -25,10 +25,12 @@
                     <a href="{{ route('teacher.java.exerciseTopicUsers.index') }}" class="nav-link">
                         <i class="nav-icon fas fa-building"></i>
                         <p>
-                            JUnit Student Result
+                            Java Result
+                            <span class="right badge badge-danger">New</span>
                         </p>
                     </a>
                 </li>
+                <li class="nav-header">Management</li>
                 <li class="nav-item">
                     <a href="{{URL::to('teacher/crooms')}}" class="nav-link">
                         <i class="nav-icon fas fa-building"></i>

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\JavaExercise;
 use App\Models\JavaExerciseTopic;
 use App\Models\JavaExerciseTopicUser;
+use App\User;
 use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
 
@@ -113,11 +114,31 @@ class JavaExerciseTopicUserController extends Controller
     }
 
     public function resultShow(JavaExerciseTopic $javaExerciseTopic){
-        $userTopic = JavaExerciseTopicUser::with('user')
-            ->where('java_exercise_topic_id', $javaExerciseTopic->id)
-            ->where('status', 'OK')
-            ->distinct('user_id')->get();
+        $user = User::where('roleid', 'student')->get();
+        $userTopics = [];
 
-        return view('teacher.java.exerciseTopicResult.show', compact('javaExerciseTopic', 'userTopic'));
+        foreach ($user as $item) {
+            $javaExerciseTopicUser = JavaExerciseTopicUser::with('user')
+                ->where('java_exercise_topic_id', $javaExerciseTopic->id)
+                ->where('user_id', $item->id)->orderByDesc('created_at')
+                ->get();
+
+            $userTopics[$item->id] = [
+                'user' => $item,
+                'itemOk' => [],
+                'itemFail' => [],
+                'itemLast' => $javaExerciseTopicUser->first()
+            ];
+
+            foreach ($javaExerciseTopicUser as $it) {
+                if ($it->status == 'OK') {
+                    $userTopics[$item->id]['itemOk'][] = $it;
+                } elseif ($it->status == 'FAILURE') {
+                    $userTopics[$item->id]['itemFail'][] = $it;
+                }
+            }
+        }
+
+        return view('teacher.java.exerciseTopicResult.show', compact('javaExerciseTopic', 'userTopics'));
     }
 }

@@ -1,34 +1,62 @@
 @extends('student/home')
 
 @section('content')
-    <div class="row">
-        <div class="col-12">
-            <div class="card">
-                <div class="card-header">
-                    <h3 class="card-title">Learning Result Detail </h3>
+
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-12">
+                    <h1>Learning Result Detail</h1>
                 </div>
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-lg-6 col-12">
-                            <div class="small-box bg-info">
-                                <div class="inner">
-                                    <h3>{{$javaExercise->topicWorkedOn()}}</h3>
-                                    <p>Keseluruhan Topic</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-6 col-12">
-                            <div class="small-box bg-success">
-                                <div class="inner">
-                                    <h3>{{$javaExercise->topicPassed()}}</h3>
-                                    <p>Topik Berhasil Dikerjakan</p>
-                                </div>
-                            </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="content">
+        <div class="container-fluid">
+
+            @if (Session::has('message'))
+                <div class="row">
+                    <div class="col-12">
+                        <div class="alert alert-success alert-dismissible">
+                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">�</button>
+                            {{ Session::get('message') }}
                         </div>
                     </div>
+                </div>
+            @endif
 
-                    <div class="row">
-                        <div class="col-md-12">
+            <div class="row">
+                <div class="col-12">
+                    <div class="callout callout-info">
+                        <h5><i class="fas fa-info"></i> Note:</h5>
+                        Silahkan pilihlah topic yang ingin anda pelajari
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-6 col-12">
+                    <div class="small-box bg-info">
+                        <div class="inner">
+                            <h3>{{$javaExercise->topicWorkedOn()}}</h3>
+                            <p>Keseluruhan Topic</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-12">
+                    <div class="small-box bg-success">
+                        <div class="inner">
+                            <h3>{{$javaExercise->topicPassed()}}</h3>
+                            <p>Topik Berhasil Dikerjakan</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-body">
                             <table class="table table-bordered table-striped">
                                 <tr>
                                     <th style="width: 40%">Name</th>
@@ -56,34 +84,41 @@
                             </table>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <h4 class="card-title">Daftar Topics</h4>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="text-dark">
+                                Daftar Topic
+                            </div>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <table class="table table-bordered table-striped datatable-javaTopics">
+                        <div class="card-body">
+                            <table class="table table-bordered table-hover dataTable dtr-inline datatable-javaTopics">
                                 <thead>
                                 <tr class="text-center">
                                     <th style="width: 2%"></th>
                                     <th style="width: 4%">ID</th>
-                                    <th>Name</th>
+                                    <th>Nama</th>
                                     <th style="width: 10%">Test Path</th>
-                                    <th style="width: 10%">Try Times</th>
-                                    <th style="width: 10%">Status</th>
+                                    <th style="width: 10%">Jumlah Percobaan</th>
+                                    <th style="width: 10%">Aksi</th>
                                 </tr>
                                 </thead>
+
+                                <tbody>
+
+                                </tbody>
                             </table>
                         </div>
                     </div>
                 </div>
-                <div class="card-footer">
-                    <a href="{{ route('student.java.learning-result.index') }}" class="btn btn-outline-info">Back</a>
-                </div>
             </div>
         </div>
-    </div>
+    </section>
+
 @endsection
 
 

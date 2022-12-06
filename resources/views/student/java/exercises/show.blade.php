@@ -1,22 +1,52 @@
 @extends('student/home')
 
 @section('content')
-    <div class="row">
-        <div class="col-12">
-            <div class="card">
-                <div class="card-header">
-                    <h3 class="card-title">Keterangan Exercise </h3>
+
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-12">
+                    <h1>Keterangan Modul</h1>
+                    Setiap Modul mempunyai beberapa topic yang dapat di kerjakan.
                 </div>
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-md-12">
+            </div>
+        </div>
+    </section>
+
+    <section class="content">
+        <div class="container-fluid">
+
+            @if (Session::has('message'))
+                <div class="row">
+                    <div class="col-12">
+                        <div class="alert alert-success alert-dismissible">
+                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">�</button>
+                            {{ Session::get('message') }}
+                        </div>
+                    </div>
+                </div>
+            @endif
+
+            <div class="row">
+                <div class="col-12">
+                    <div class="callout callout-info">
+                        <h5><i class="fas fa-info"></i> Note:</h5>
+                        Silahkan pilihlah topic yang ingin anda pelajari
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-body">
                             <table class="table table-bordered table-striped">
                                 <tr>
-                                    <th style="width: 40%">Name</th>
+                                    <th style="width: 40%">Nama Modul</th>
                                     <td style="width: 60%">{{ $javaExercise->name ?? '' }}</td>
                                 </tr>
                                 <tr>
-                                    <th style="width: 40%">Grade</th>
+                                    <th style="width: 40%">Tingkatan</th>
                                     <td style="width: 60%">{{ $javaExercise->grade ?? '' }}</td>
                                 </tr>
                                 <tr>
@@ -33,35 +63,40 @@
                             </table>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <h4 class="card-title">Daftar Topics</h4>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="text-dark">
+                                Daftar Topic
+                            </div>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <table class="table table-bordered table-striped datatable-javaTopics">
+                        <div class="card-body">
+                            <table class="table table-bordered table-hover dataTable dtr-inline datatable-javaTopics">
                                 <thead>
                                 <tr class="text-center">
-                                    <th style="width: 2%"></th>
-                                    <th style="width: 4%">ID</th>
-                                    <th>Name</th>
-                                    <th>Description</th>
+                                    <th style="width: 4%">#</th>
+                                    <th>Nama</th>
+                                    <th>Deskripsi</th>
                                     <th style="width: 10%">Test Path</th>
                                     <th style="width: 10%">Java Exercise</th>
                                     <th style="width: 10%">Actions</th>
                                 </tr>
                                 </thead>
+
+                                <tbody>
+
+                                </tbody>
                             </table>
                         </div>
                     </div>
                 </div>
-                <div class="card-footer">
-                    <a href="{{ route('student.java.exercise.index') }}" class="btn btn-outline-info">Back</a>
-                </div>
             </div>
         </div>
-    </div>
+    </section>
 @endsection
 
 
@@ -76,15 +111,17 @@
                 paging: false,
                 searching: false,
                 aaSorting: [],
+                autoWidth: false,
+                responsive: true,
+                lengthChange: false,
                 ajax: "{{ route('student.java.exercise.topicAdapter', $javaExercise->id) }}",
                 columns: [
-                    {data: 'placeholder', name: 'placeholder'},
                     {data: 'id', name: 'id'},
                     {data: 'name', name: 'name'},
                     {data: 'description', name: 'description'},
                     {data: 'test_path', name: 'test_path'},
                     {data: 'java_exercise_id', name: 'java_exercise_id'},
-                    {data: 'actions', name: '{{ trans('global.actions') }}'}
+                    {data: 'actions', name: '{{ trans('global.actions') }}', orderable: false, searchable: false}
                 ],
                 orderCellsTop: true,
                 order: [[1, 'desc']],

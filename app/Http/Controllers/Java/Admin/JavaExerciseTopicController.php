@@ -60,7 +60,7 @@ class JavaExerciseTopicController extends Controller
             });
 
             $table->editColumn('java_exercise_id', function ($row) {
-                return $row->javaExercise->name ? $row->javaExercise->name  : '';
+                return $row->javaExercise ? $row->javaExercise->name  : '';
             });
 
             $table->rawColumns(['actions', 'placeholder', 'file_path', 'test_path']);

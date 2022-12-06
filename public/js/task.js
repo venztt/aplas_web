@@ -15,8 +15,10 @@ $(function () {
     codeMirrors.setSize(null, 700);
 
     $('.btn-validate').on('click', function () {
+        let btnValidate = $(this);
         let editorContainer = $('.editor-container');
 
+        btnValidate.prop('disabled', true);
         editorContainer.block({
             message: '<div class="spinner-grow text-light" role="status"><span class="sr-only">Loading...</span></div>',
             css: {
@@ -37,12 +39,21 @@ $(function () {
                 let data = response.data;
                 if (Object.hasOwn(data, 'history_appends')) {
                     let appends = data.history_appends;
+                    let status = '';
+
+                    if (appends.status === 'FAILURE') {
+                        btnValidate.prop('disabled', false);
+                        status = '<span class="right badge badge-danger">'+appends.status+'</span>'
+                    } else {
+                        status = '<span class="right badge badge-success">'+appends.status+'</span>'
+                    }
+
                     $('.no-history').remove();
                     $('.datatable-taskHistory tbody').append(
                         '<tr>' +
                         '<td>' + appends.created_id + '</td>' +
                         '<td>' + appends.raw + '</td>' +
-                        '<td>' + appends.status + '</td>' +
+                        '<td>' + status + '</td>' +
                         '<td>' + appends.report + '</td>' +
                         '</tr>'
                     );

@@ -6,83 +6,108 @@
 @endsection
 
 @section('content')
-    <div class="row">
-        <div class="col-12">
-            <div class="card">
-                <div class="card-body">
-                    <div class="row mb-4">
-                        <div class="col-sm-12">
-                            <h2>{{ $javaExerciseTopic->name }}</h2>
-                            {{ $javaExerciseTopic->description }}
-                        </div>
-                    </div>
-                    @if (session()->has('message'))
-                        <div id="alert-msg" class="alert alert-success alert-dismissible">
+
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-12">
+                    <h1>{{ $javaExerciseTopic->name }}</h1>
+                    {{ $javaExerciseTopic->description }}.
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="content">
+        <div class="container-fluid">
+
+            @if (Session::has('message'))
+                <div class="row">
+                    <div class="col-12">
+                        <div class="alert alert-success alert-dismissible">
                             <button type="button" class="close" data-dismiss="alert" aria-hidden="true">�</button>
-                            {{ session()->get('message') }}
+                            {{ Session::get('message') }}
                         </div>
-                    @endif
-                    <div class="row mb-2">
-                        <div class="col-md-12">
-                            <div class="callout callout-info">
-                                <h5><i class="fas fa-info"></i> Note:</h5>
-                                Sebelum mengerjakan task ini, pastikanlah sudah membaca modul dan dokumentasi yang sudah di berikan.
-                                Kerjakan sesuai dengan arahan
+                    </div>
+                </div>
+            @endif
+
+            <div class="row">
+                <div class="col-12">
+                    <div class="callout callout-info">
+                        <h5><i class="fas fa-info"></i> Note:</h5>
+                        Sebelum mengerjakan task ini, pastikanlah sudah membaca modul dan dokumentasi yang sudah di
+                        berikan.
+                        Kerjakan sesuai dengan arahan
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="row mb-3">
+                                <div class="col-md-6 mt-2">
+                                    <div class="btn-right">
+                                        <a href="{{ route('student.java.exercise.show', $javaExercise->id) }}"
+                                           class="btn btn-outline-primary">List Percobaan</a>
+                                        @if($previousTopic)
+                                            <a href="{{route('student.java.exercise.doTask', ['javaExercise' => $javaExercise->id, 'javaExerciseTopic' => $previousTopic->id]) }}"
+                                               class="btn btn-outline-primary ml-2">Sebelumnya</a>
+                                        @else
+                                            <button type="button" disabled
+                                                    class="btn btn-outline-primary ml-2">Sebelumnya
+                                            </button>
+                                        @endif
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mt-2">
+                                    <div class="btn-right float-right">
+                                        @if(!$nextTopic)
+                                            <a href="{{ route('student.java.learning-result.feedback', ['javaExercise' => $javaExercise->id]) }}"
+                                               class="btn btn-primary">Feedback</a>
+                                        @endif
+                                        <button type="button"
+                                                class="btn btn-success btn-validate ml-2" {{ $validationHistoryPass ? 'disabled' : '' }}>{{ $validationHistoryPass ? 'Passed': 'Koreksi'}}</button>
+                                        @if($nextTopic)
+                                            <a href="{{route('student.java.exercise.doTask', ['javaExercise' => $javaExercise->id, 'javaExerciseTopic' => $nextTopic->id]) }}"
+                                               class="btn btn-outline-primary ml-2">Selanjutnya</a>
+                                        @else
+                                            <button type="button" disabled
+                                                    class="btn btn-outline-primary ml-2">Selanjutnya
+                                            </button>
+                                        @endif
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <iframe
+                                        src="{{ asset('pdfjs/web/viewer.html')}}?file={{ url('storage' . DIRECTORY_SEPARATOR . strstr($javaExercise->module_path, 'java')) }}"
+                                        width="100%"
+                                        height="700px"
+                                        style="border: none;"></iframe>
+                                </div>
+                                <div class="col-md-6 editor-container">
+                                    <textarea id="editor" style="visibility: hidden">{{ $codeTemplate ?? ''}}</textarea>
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <div class="row mb-3">
-                        <div class="col-md-6 mt-2">
-                            <div class="btn-right">
-                                <a href="{{ route('student.java.exercise.show', $javaExercise->id) }}"
-                                   class="btn btn-outline-primary">List Percobaan</a>
-                                @if($previousTopic)
-                                    <a href="{{route('student.java.exercise.doTask', ['javaExercise' => $javaExercise->id, 'javaExerciseTopic' => $previousTopic->id]) }}"
-                                       class="btn btn-outline-primary ml-2">Sebelumnya</a>
-                                @else
-                                    <button type="button" disabled
-                                            class="btn btn-outline-primary ml-2">Sebelumnya
-                                    </button>
-                                @endif
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="text-dark">
+                                Riwayat Validasi
                             </div>
                         </div>
-                        <div class="col-md-6 mt-2">
-                            <div class="btn-right float-right">
-                                @if(!$nextTopic)
-                                    <a href="{{ route('student.java.learning-result.feedback', ['javaExercise' => $javaExercise->id]) }}" class="btn btn-primary">Feedback</a>
-                                @endif
-                                <button type="button"
-                                        class="btn btn-success btn-validate ml-2" {{ $validationHistoryPass ? 'disabled' : '' }}>{{ $validationHistoryPass ? 'Passed': 'Koreksi'}}</button>
-                                @if($nextTopic)
-                                    <a href="{{route('student.java.exercise.doTask', ['javaExercise' => $javaExercise->id, 'javaExerciseTopic' => $nextTopic->id]) }}"
-                                       class="btn btn-outline-primary ml-2">Selanjutnya</a>
-                                @else
-                                    <button type="button" disabled
-                                            class="btn btn-outline-primary ml-2">Selanjutnya
-                                    </button>
-                                @endif
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <iframe
-                                src="{{ asset('pdfjs/web/viewer.html')}}?file={{ asset('stream.pdf')}}"
-                                width="100%"
-                                height="700px"
-                                style="border: none;"></iframe>
-                        </div>
-                        <div class="col-md-6 editor-container">
-                            <textarea id="editor" style="visibility: hidden">{{ $codeTemplate ?? ''}}</textarea>
-                        </div>
-                    </div>
-                    <div class="row mt-2">
-                        <div class="col-sm-12">
-                            <h5>Riwayat Validasi</h5>
-                        </div>
-                    </div>
-                    <div class="row mt-2">
-                        <div class="col-md-12">
+
+                        <div class="card-body">
                             <table class="table table-bordered table-hover datatable-taskHistory">
                                 <thead>
                                 <tr class="text-center">
@@ -98,7 +123,13 @@
                                         <tr>
                                             <td>{{$items->id ?? ''}}</td>
                                             <td>{{$items->raw ?? ''}}</td>
-                                            <td>{{$items->status ?? ''}}</td>
+                                            <td>
+                                                @if($items->status == 'FAILURE')
+                                                    <span class="right badge badge-danger">{{$items->status}}</span>
+                                                @else
+                                                    <span class="right badge badge-success">{{$items->status}}</span>
+                                                @endif
+                                            </td>
                                             <td>{{$items->report ?? ''}}</td>
                                         </tr>
                                     @endforeach
@@ -114,7 +145,8 @@
                 </div>
             </div>
         </div>
-    </div>
+    </section>
+
 @endsection
 @section('scripts')
     <script>
