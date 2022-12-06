@@ -18,6 +18,10 @@ class StoreJavaExerciseTopicRequest extends FormRequest
                 'string',
                 'required',
             ],
+            'java_class_name' => [
+                'string',
+                'required',
+            ],
             'java_exercise_id' => [
                 'string',
                 'required',

@@ -55,6 +55,10 @@ class JavaExerciseTopicController extends Controller
                     url('storage' . DIRECTORY_SEPARATOR . strstr($row->test_path, 'java')) . '">Download</a>' : 'No file found';
             });
 
+            $table->addColumn('java_class_name', function ($row) {
+                return $row->java_class_name ? $row->java_class_name : '';
+            });
+
             $table->editColumn('java_exercise_id', function ($row) {
                 return $row->javaExercise->name ? $row->javaExercise->name  : '';
             });

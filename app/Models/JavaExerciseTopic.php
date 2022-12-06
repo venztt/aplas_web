@@ -23,11 +23,32 @@ class JavaExerciseTopic extends Model
         'description',
         'file_path',
         'test_path',
+        'java_class_name',
         'java_exercise_id',
         'created_at',
         'updated_at',
         'deleted_at',
     ];
+
+    public function next($java_exercise_id){
+        return JavaExerciseTopic::with('javaExercise')
+            ->where('java_exercise_id', $java_exercise_id)
+            ->where('id', '>', $this->id)->orderBy('id')->first();
+
+    }
+
+    public  function previous($java_exercise_id){
+        return JavaExerciseTopic::with('javaExercise')
+            ->where('java_exercise_id', $java_exercise_id)
+            ->where('id', '<', $this->id)->orderByDesc('id')->first();
+    }
+
+    public  function tryingNumber(): int
+    {
+        return JavaExerciseTopicUser::with('javaExerciseTopic')
+            ->where('java_exercise_topic_id', $this->id)
+            ->where('user_id', auth()->id())->get()->count();
+    }
 
     public function javaExercise()
     {

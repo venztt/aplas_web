@@ -19,6 +19,7 @@ class CreateJavaExerciseTopicsTable extends Migration
             $table->longText('description')->nullable();
             $table->string('file_path')->nullable();
             $table->string('test_path')->nullable();
+            $table->string('java_class_name')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

@@ -22,21 +22,21 @@
         <nav class="mt-2">
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                 <li class="treeview">
-                    <a href="#" class="nav-link" style="background-color:#00b44e;color:black;">
+                    <a href="javascript:void(0);" class="nav-link" style="background-color:#00b44e;color:black;">
                         <i class="nav-icon fas fa-space-shuttle"></i>
                         <p><b>Start Learning Java</b></p>
                     </a>
                     <ul role="menu" class="nav nav-pills nav-sidebar flex-column">
                         <li class="nav-item">
-                            <a href="{{ route('student.java.do-task') }}" class="nav-link"><i
+                            <a href="{{ route('student.java.exercise.index') }}" class="nav-link"><i
                                     class="nav-icon fas fa-angle-right"></i>
-                                <p>Start learning</p>
+                                <p>Learning Java <span class="right badge badge-danger">New</span></p>
                             </a>
                         </li>
                     </ul>
                     <ul role="menu" class="nav nav-pills nav-sidebar flex-column">
                         <li class="nav-item">
-                            <a href="{{URL::to('student/tasks')}}" class="nav-link"><i
+                            <a href="{{ route('student.java.learning-result.index') }}" class="nav-link"><i
                                     class="nav-icon fas fa-angle-right"></i>
                                 <p>Learning Results</p>
                             </a>

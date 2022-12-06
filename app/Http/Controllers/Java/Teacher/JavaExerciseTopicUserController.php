@@ -11,7 +11,6 @@ use Yajra\DataTables\Facades\DataTables;
 
 class JavaExerciseTopicUserController extends Controller
 {
-
     public function index(Request $request)
     {
         if ($request->ajax()) {
@@ -73,8 +72,8 @@ class JavaExerciseTopicUserController extends Controller
             $table->addColumn('actions', '&nbsp;');
 
             $table->editColumn('actions', function ($row) {
-                $enabledCruds = [];
-                $crudRoutePart = 'teacher.java.exerciseTopicUsers';
+                $enabledCruds = ['show'];
+                $crudRoutePart = 'teacher.java.exerciseTopicResult';
 
                 return view('partials.datatableActions', compact(
                     'row',
@@ -111,5 +110,14 @@ class JavaExerciseTopicUserController extends Controller
         }
 
         return redirect()->route('teacher.java.exerciseTopicUser.index');
+    }
+
+    public function resultShow(JavaExerciseTopic $javaExerciseTopic){
+        $userTopic = JavaExerciseTopicUser::with('user')
+            ->where('java_exercise_topic_id', $javaExerciseTopic->id)
+            ->where('status', 'OK')
+            ->distinct('user_id')->get();
+
+        return view('teacher.java.exerciseTopicResult.show', compact('javaExerciseTopic', 'userTopic'));
     }
 }

@@ -29,11 +29,27 @@ $(function () {
             }
         });
 
-        $.post('/student/java/execute', {
+        $.post(global.doTask, {
             '_token': $('meta[name="csrf-token"]').attr('content'),
             'code': codeMirrors.getValue()
-        }, function (data) {
-            console.log(data);
+        }, function (response) {
+            if (Object.hasOwn(response, 'data')) {
+                let data = response.data;
+                if (Object.hasOwn(data, 'history_appends')) {
+                    let appends = data.history_appends;
+                    $('.no-history').remove();
+                    $('.datatable-taskHistory tbody').append(
+                        '<tr>' +
+                        '<td>' + appends.created_id + '</td>' +
+                        '<td>' + appends.raw + '</td>' +
+                        '<td>' + appends.status + '</td>' +
+                        '<td>' + appends.report + '</td>' +
+                        '</tr>'
+                    );
+                }
+            } else {
+                alert('Something went wrong.')
+            }
         }).done(function (data) {
             editorContainer.unblock();
         });

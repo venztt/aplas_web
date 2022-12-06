@@ -34,6 +34,12 @@
                                     <input type="file" class="form-control" name="test_path"/>
                                 </div>
                                 <div class="form-group">
+                                    <label for="java_class_name">ClassName</label>
+                                    <input type="text" class="form-control" name="java_class_name"
+                                           value="{{ old('java_class_name') }}"
+                                           placeholder="Classname name"/>
+                                </div>
+                                <div class="form-group">
                                     <label for="test_path">JUnit File</label>
                                     <select name="java_exercise_id" class="form-control">
                                         @foreach($javaExercise as $id => $exercise)

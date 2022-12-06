@@ -30,12 +30,10 @@ trait MediaTrait
                 $setting = Setting::first();
 
                 if ($setting) {
-                    $name = uniqid() . '_' . 'HelloWorld';
-//                    $name = uniqid() . '_' . $exercise_topic->class_name;
+                    $name = $exercise_topic->java_class_name;
 
-//                    $save_path = storage_path('app/public/java/' . $type . DIRECTORY_SEPARATOR  . auth()->id() . DIRECTORY_SEPARATOR  . $exercise_topic->id);
                     $save_path = storage_path('app' . DIRECTORY_SEPARATOR . 'public' . DIRECTORY_SEPARATOR . 'java' .
-                        DIRECTORY_SEPARATOR . $type . DIRECTORY_SEPARATOR . auth()->id() . DIRECTORY_SEPARATOR . '1');
+                        DIRECTORY_SEPARATOR . $type . DIRECTORY_SEPARATOR . auth()->id() . DIRECTORY_SEPARATOR . $exercise_topic->id);
 
                     try {
                         if (!file_exists($save_path)) {
@@ -52,10 +50,17 @@ trait MediaTrait
                     fclose($save_java);
 
                     $path_save_java = $save_path . DIRECTORY_SEPARATOR;
-                    exec(escapeshellarg($setting->java_path . DIRECTORY_SEPARATOR . "javac.exe") . " "
-                        . $save_java_path . " 2>&1", $report);
+                    $path_save_all = $save_path . DIRECTORY_SEPARATOR . '*.java';
 
-                    unlink($save_java_path);
+                    try {
+                        copy($exercise_topic->test_path, $save_path . DIRECTORY_SEPARATOR . $exercise_topic->java_class_name . "Test.java");
+                        exec(escapeshellarg($setting->java_path . DIRECTORY_SEPARATOR . "javac.exe") .
+                            " -cp " . $setting->java_junit_path . " " . $path_save_all . " 2>&1", $report);
+
+                        array_map('unlink', glob( "$path_save_java*.java"));
+                    } catch (\Exception $e) {
+                        $path_save_java = null;
+                    }
                 }
             } else {
                 $original_name = $file->getClientOriginalName();
@@ -78,6 +83,7 @@ trait MediaTrait
 
             return [
                 'name' => $name,
+                'raw' => $file . '',
                 'original_name' => $original_name,
                 'report' => $report,
                 'file_path' => $path_save,

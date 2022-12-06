@@ -17,6 +17,7 @@ class CreateSettingTable extends Migration
             $table->bigIncrements('id');
             $table->string('java_path')->nullable();
             $table->string('java_junit_path')->nullable();
+            $table->string('java_hamcrest_path')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

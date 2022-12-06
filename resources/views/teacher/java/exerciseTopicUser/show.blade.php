@@ -9,6 +9,24 @@
                 </div>
                 <div class="card-body">
                     <div class="row">
+                        <div class="col-lg-6 col-12">
+                            <div class="small-box bg-info">
+                                <div class="inner">
+                                    <h3>{{$javaExercise->topicWorkedOn()}}</h3>
+                                    <p>Keseluruhan Topic</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-12">
+                            <div class="small-box bg-success">
+                                <div class="inner">
+                                    <h3>{{$javaExercise->topicPassedTeacher()}}</h3>
+                                    <p>Siswa Berhasil Mengerjakan</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
                         <div class="col-md-12">
                             <table class="table table-bordered table-striped">
                                 <tr>

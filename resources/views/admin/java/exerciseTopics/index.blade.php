@@ -31,6 +31,7 @@
                                     <th>Description</th>
                                     <th>File Path</th>
                                     <th>Test Path</th>
+                                    <th>ClassName</th>
                                     <th>Java Exercise</th>
                                     <th style="width: 15%">Actions</th>
                                 </tr>
@@ -61,6 +62,7 @@
                     {data: 'description', name: 'description'},
                     {data: 'file_path', name: 'file_path'},
                     {data: 'test_path', name: 'test_path'},
+                    {data: 'java_class_name', name: 'java_class_name'},
                     {data: 'java_exercise_id', name: 'java_exercise_id'},
                     {data: 'actions', name: '{{ trans('global.actions') }}'}
                 ],

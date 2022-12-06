@@ -14,6 +14,14 @@
                             {{ Session::get('message') }}
                         </div>
                     @endif
+                        <div class="row mb-2">
+                            <div class="col-md-12">
+                                <div class="callout callout-info">
+                                    <h5><i class="fas fa-info"></i> Note:</h5>
+                                    Dibawah ini merupakan hasil dari siswa yang sudah mengerjakan topic task, beserta dengan riwayat pengerjaannya.
+                                </div>
+                            </div>
+                        </div>
                     <div class="row">
                         <div class="col-md-12">
                             <table class="table table-bordered table-hover datatable-javaExercises">
