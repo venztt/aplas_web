@@ -78,7 +78,7 @@ class StudentJavaLearningResultController extends Controller
             $table->editColumn('actions', function ($row) use ($javaExercise) {
                 if ($row->test_path) {
                     $validationHistoryPass = JavaExerciseTopicUser::with('user')->where([
-                        'java_exercise_topic_id' => $javaExercise->id,
+                        'java_exercise_topic_id' => $row->id,
                         'user_id' => Auth::id(),
                         'status' => 'OK'
                     ])->first();

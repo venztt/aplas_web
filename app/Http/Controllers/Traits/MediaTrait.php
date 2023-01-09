@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Traits;
 
+use App\Models\JavaExercise;
+use App\Models\JavaExerciseTopic;
 use App\Models\Setting;
 
 trait MediaTrait
@@ -51,6 +53,22 @@ trait MediaTrait
 
                     $path_save_java = $save_path . DIRECTORY_SEPARATOR;
                     $path_save_all = $save_path . DIRECTORY_SEPARATOR . '*.java';
+
+                    /**
+                     * Recursive adding javaExercise classes to userDir
+                     */
+
+                    $javaExerciseTopics = JavaExerciseTopic::with('javaExercise')
+                        ->where('java_exercise_id', $exercise_topic->java_exercise_id)
+                        ->where('id', '!=', $exercise_topic->id)->get();
+
+                    foreach ($javaExerciseTopics as $val) {
+                        try {
+                            copy($val->file_path, $save_path . DIRECTORY_SEPARATOR . $val->java_class_name . ".java");
+                        } catch (\Exception $e) {
+                            // do nothing
+                        }
+                    }
 
                     try {
                         copy($exercise_topic->test_path, $save_path . DIRECTORY_SEPARATOR . $exercise_topic->java_class_name . "Test.java");
