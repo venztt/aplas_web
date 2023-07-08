@@ -37,6 +37,7 @@ $(function () {
         }, function (response) {
             if (Object.hasOwn(response, 'data')) {
                 let data = response.data;
+                console.log(data);
                 if (Object.hasOwn(data, 'history_appends')) {
                     let appends = data.history_appends;
                     let status = '';

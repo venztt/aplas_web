@@ -15,9 +15,9 @@ class AddRelationshipFieldsToJavaExerciseFeedbacksTable extends Migration
     {
         Schema::table('java_exercise_feedbacks', function (Blueprint $table) {
             $table->unsignedBigInteger('java_exercise_id')->nullable();
-            $table->foreign('java_exercise_id', 'java_exercise_fk_5521342')->references('id')->on('java_exercises');
+            $table->foreign('java_exercise_id')->references('id')->on('java_exercises');
             $table->unsignedBigInteger('user_id')->nullable();
-            $table->foreign('user_id', 'user_fk_5521232')->references('id')->on('users');
+            $table->foreign('user_id')->references('id')->on('users');
         });
     }
 }

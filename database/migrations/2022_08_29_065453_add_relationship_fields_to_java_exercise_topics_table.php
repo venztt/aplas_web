@@ -15,7 +15,7 @@ class AddRelationshipFieldsToJavaExerciseTopicsTable extends Migration
     {
         Schema::table('java_exercise_topics', function (Blueprint $table) {
             $table->unsignedBigInteger('java_exercise_id')->nullable();
-            $table->foreign('java_exercise_id', 'java_exercise_fk_5323342')->references('id')->on('java_exercises');
+            $table->foreign('java_exercise_id')->references('id')->on('java_exercises');
         });
     }
 }
