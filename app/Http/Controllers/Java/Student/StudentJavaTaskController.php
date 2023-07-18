@@ -64,6 +64,7 @@ class StudentJavaTaskController extends Controller
         $result = [];
         if ($javaExerciseTopic->java_class_name) {
             $execute = $this->storeMedia($request->code, 'exercise_files_user', $javaExerciseTopic);
+            // return response()->json($execute);
             $result['data']['xecute'] = $execute;
 
             if (isset($execute['path_save_java']) && $execute['path_save_java'] != null) {
@@ -76,7 +77,7 @@ class StudentJavaTaskController extends Controller
         } else {
             $result['status'] = false;
         }
-
+        // dd($result);
         return response()->json($result);
     }
 

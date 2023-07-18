@@ -35,6 +35,7 @@ $(function () {
             '_token': $('meta[name="csrf-token"]').attr('content'),
             'code': codeMirrors.getValue()
         }, function (response) {
+            
             if (Object.hasOwn(response, 'data')) {
                 let data = response.data;
                 console.log(data);
@@ -58,6 +59,10 @@ $(function () {
                         '<td>' + appends.report + '</td>' +
                         '</tr>'
                     );
+                    if(document.getElementById("riwayat").rows.length > document.getElementById("maxattemp").value){
+                        document.getElementById("btnkoreksi").disabled = true;
+                        document.getElementById("btnkoreksi").textContent = 'Batas Percobaan Habis';
+                    }
                 }
             } else {
                 alert('Something went wrong.')

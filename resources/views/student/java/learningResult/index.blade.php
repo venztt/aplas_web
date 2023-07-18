@@ -46,6 +46,7 @@
                                     <th>Tingkat</th>
                                     <th>Topic Tersedia</th>
                                     <th>Topic Berhasil</th>
+                                    <th>Nilai</th>
                                     <th style="width: 15%">Actions</th>
                                 </tr>
                                 </thead>
@@ -81,6 +82,7 @@
                     {data: 'grade', name: 'grade'},
                     {data: 'topic_worked_on', name: 'topic_worked_on'},
                     {data: 'topic_passed', name: 'topic_passed'},
+                    {data: 'hasil', name: 'hasil'},
                     {data: 'actions', name: '{{ trans('global.actions') }}', orderable: false, searchable: false }
                 ],
                 orderCellsTop: true,

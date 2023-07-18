@@ -15,7 +15,7 @@
             </div>
         </div>
     </section>
-
+    <input type="number" name="" hidden id="maxattemp" value="<?php echo e($javaExerciseTopic->percobaan); ?>">
     <section class="content">
         <div class="container-fluid">
 
@@ -67,8 +67,10 @@
                                             <a href="<?php echo e(route('student.java.learning-result.feedback', ['javaExercise' => $javaExercise->id])); ?>"
                                                class="btn btn-primary">Feedback</a>
                                         <?php endif; ?>
-                                        <button type="button"
+                                        
+                                        <button type="button" id="btnkoreksi"
                                                 class="btn btn-success btn-validate ml-2" <?php echo e($validationHistoryPass ? 'disabled' : ''); ?>><?php echo e($validationHistoryPass ? 'Passed': 'Koreksi'); ?></button>
+                                        
                                         <?php if($nextTopic): ?>
                                             <a href="<?php echo e(route('student.java.exercise.doTask', ['javaExercise' => $javaExercise->id, 'javaExerciseTopic' => $nextTopic->id])); ?>"
                                                class="btn btn-outline-primary ml-2">Selanjutnya</a>
@@ -107,7 +109,7 @@
                         </div>
 
                         <div class="card-body">
-                            <table class="table table-bordered table-hover datatable-taskHistory">
+                            <table class="table table-bordered table-hover datatable-taskHistory" id="riwayat">
                                 <thead>
                                 <tr class="text-center">
                                     <th style="width: 4%">ID</th>
@@ -117,7 +119,18 @@
                                 </tr>
                                 </thead>
                                 <tbody>
+                                
                                 <?php if($validationHistory->count() > 0): ?>
+                                    <?php if($validationHistory->count() < $javaExerciseTopic->percobaan): ?>
+                                    <script>
+                                            document.getElementById("btnkoreksi").disabled = false;
+                                        </script>
+                                    <?php else: ?>
+                                        <script>
+                                            document.getElementById("btnkoreksi").disabled = true;
+                                            document.getElementById("btnkoreksi").textContent = 'Batas Percobaan Habis';
+                                        </script>
+                                    <?php endif; ?>
                                     <?php $__currentLoopData = $validationHistory; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $items): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                         <tr>
                                             <td><?php echo e($items->id ?? ''); ?></td>
@@ -132,6 +145,9 @@
                                             <td><?php echo e($items->report ?? ''); ?></td>
                                         </tr>
                                     <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                    <script>
+
+                                    </script>
                                 <?php else: ?>
                                     <tr>
                                         <td class="text-center no-history" colspan="5">No history to show</td>

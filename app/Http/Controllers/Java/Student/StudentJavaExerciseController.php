@@ -80,8 +80,8 @@ class StudentJavaExerciseController extends Controller
                         'user_id' => Auth::id(),
                         'status' => 'OK'
                     ])->first();
-
-                    if ($validationHistoryPass) {
+                    $attemp = JavaExerciseTopicUser::where('java_exercise_topic_id', $row->id)->where('user_id',Auth::id())->get()->count();
+                    if ($validationHistoryPass || $attemp >= $row->percobaan) {
                         $doActions = '<a href="' . route('student.java.learning-result.show',
                                 ['javaExercise' => $javaExercise->id]) . '" class="btn btn-primary">Lihat Hasil</a>';
                     } else {

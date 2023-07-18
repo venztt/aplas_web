@@ -21,6 +21,9 @@ class JavaExerciseTopic extends Model
     protected $fillable = [
         'name',
         'description',
+        'percobaan',
+        'max',
+        'min',
         'file_path',
         'test_path',
         'java_class_name',

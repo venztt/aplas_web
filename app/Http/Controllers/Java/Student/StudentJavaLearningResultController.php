@@ -21,7 +21,15 @@ class StudentJavaLearningResultController extends Controller
 
             $table->addColumn('placeholder', '&nbsp;');
             $table->addColumn('actions', '&nbsp;');
+            $table->addColumn('hasil', function ($row) {
+                // $status = $row->testCaseStatus();
 
+                return $row->topicGrading();
+                // $parts = explode('(', $status);
+                // $value = isset($parts[1]) ? trim($parts[1]) : '';
+                // $result = rtrim($value, ' test)');
+                // return $status;
+            });
             $table->editColumn('actions', function ($row) {
                 $enabledCruds = ['show'];
                 $crudRoutePart = 'student.java.learning-result';
@@ -44,7 +52,8 @@ class StudentJavaLearningResultController extends Controller
             $table->addColumn('topic_worked_on', function ($row) {
                 return $row->topicWorkedOn();
             });
-
+            
+            
             $table->addColumn('topic_passed', function ($row) {
                 return $row->topicPassed();
             });
@@ -86,8 +95,9 @@ class StudentJavaLearningResultController extends Controller
                     if ($validationHistoryPass) {
                         $doActions = 'Passed';
                     } else {
-                        $doActions = '<a href="' . route('student.java.exercise.doTask',
-                                ['javaExercise' => $javaExercise->id, 'javaExerciseTopic' => $row->id]) . '" class="btn btn-primary">Kerjakan</a>';
+                        $doActions = 'Not Passed';
+                        // $doActions = '<a href="' . route('student.java.exercise.doTask',
+                        //         ['javaExercise' => $javaExercise->id, 'javaExerciseTopic' => $row->id]) . '" class="btn btn-primary">Kerjakan</a>';
                     }
                 } else {
                     $doActions = '';

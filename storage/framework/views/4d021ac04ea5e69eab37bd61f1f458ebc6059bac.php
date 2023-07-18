@@ -46,6 +46,18 @@
                                             <input type="file" class="form-control" name="test_path"/>
                                         </div>
                                         <div class="form-group">
+                                            <label for="percobaan">Percobaan</label>
+                                            <input type="number" class="form-control" value="0" min="0" name="percobaan"/>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="max">Nilai Maksimal</label>
+                                            <input type="number" class="form-control" value="0" min="0" name="max"/>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="min">Nilai Minimal</label>
+                                            <input type="number" class="form-control" value="0" min="0" name="min"/>
+                                        </div>
+                                        <div class="form-group">
                                             <label for="java_class_name">ClassName</label>
                                             <input type="text" class="form-control" name="java_class_name"
                                                    value="<?php echo e(old('java_class_name')); ?>"

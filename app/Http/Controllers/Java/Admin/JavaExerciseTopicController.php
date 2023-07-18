@@ -58,6 +58,18 @@ class JavaExerciseTopicController extends Controller
             $table->addColumn('java_class_name', function ($row) {
                 return $row->java_class_name ? $row->java_class_name : '';
             });
+            
+            $table->addColumn('percobaan', function ($row) {
+                return $row->java_class_name ? $row->java_class_name : '';
+            });
+
+            // $table->addColumn('max_nilai', function ($row) {
+            //     return $row->java_class_name ? $row->java_class_name : '';
+            // });
+
+            // $table->addColumn('min_nilai', function ($row) {
+            //     return $row->java_class_name ? $row->java_class_name : '';
+            // });
 
             $table->editColumn('java_exercise_id', function ($row) {
                 return $row->javaExercise ? $row->javaExercise->name  : '';
@@ -80,6 +92,7 @@ class JavaExerciseTopicController extends Controller
 
     public function store(StoreJavaExerciseTopicRequest $storeJavaExerciseTopicRequest)
     {
+        // dd($storeJavaExerciseTopicRequest);
         $javaExerciseTopics = JavaExerciseTopic::create($storeJavaExerciseTopicRequest->except('file_path', 'test_path'));
 
         if ($storeJavaExerciseTopicRequest->hasFile('file_path')) {

@@ -17,7 +17,7 @@
             </div>
         </div>
     </section>
-
+    <input type="number" name="" hidden id="maxattemp" value="{{ $javaExerciseTopic->percobaan }}">
     <section class="content">
         <div class="container-fluid">
 
@@ -68,8 +68,10 @@
                                             <a href="{{ route('student.java.learning-result.feedback', ['javaExercise' => $javaExercise->id]) }}"
                                                class="btn btn-primary">Feedback</a>
                                         @endif
-                                        <button type="button"
+                                        
+                                        <button type="button" id="btnkoreksi"
                                                 class="btn btn-success btn-validate ml-2" {{ $validationHistoryPass ? 'disabled' : '' }}>{{ $validationHistoryPass ? 'Passed': 'Koreksi'}}</button>
+                                        
                                         @if($nextTopic)
                                             <a href="{{route('student.java.exercise.doTask', ['javaExercise' => $javaExercise->id, 'javaExerciseTopic' => $nextTopic->id]) }}"
                                                class="btn btn-outline-primary ml-2">Selanjutnya</a>
@@ -108,7 +110,7 @@
                         </div>
 
                         <div class="card-body">
-                            <table class="table table-bordered table-hover datatable-taskHistory">
+                            <table class="table table-bordered table-hover datatable-taskHistory" id="riwayat">
                                 <thead>
                                 <tr class="text-center">
                                     <th style="width: 4%">ID</th>
@@ -118,7 +120,18 @@
                                 </tr>
                                 </thead>
                                 <tbody>
+                                
                                 @if($validationHistory->count() > 0)
+                                    @if($validationHistory->count() < $javaExerciseTopic->percobaan)
+                                    <script>
+                                            document.getElementById("btnkoreksi").disabled = false;
+                                        </script>
+                                    @else
+                                        <script>
+                                            document.getElementById("btnkoreksi").disabled = true;
+                                            document.getElementById("btnkoreksi").textContent = 'Batas Percobaan Habis';
+                                        </script>
+                                    @endif
                                     @foreach($validationHistory as $items)
                                         <tr>
                                             <td>{{$items->id ?? ''}}</td>
@@ -133,6 +146,9 @@
                                             <td>{{$items->report ?? ''}}</td>
                                         </tr>
                                     @endforeach
+                                    <script>
+
+                                    </script>
                                 @else
                                     <tr>
                                         <td class="text-center no-history" colspan="5">No history to show</td>
