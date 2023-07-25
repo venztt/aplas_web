@@ -77,7 +77,7 @@ trait MediaTrait
 
                         array_map('unlink', glob("$path_save_java*.java"));
                     } catch (\Exception $e) {
-                        $path_save_java = $e->getMessage();
+                        $path_save_java = null;
                     }
                 }
             } else {
