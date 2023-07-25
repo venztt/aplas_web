@@ -63,14 +63,6 @@ class JavaExerciseTopicController extends Controller
                 return $row->java_class_name ? $row->java_class_name : '';
             });
 
-            // $table->addColumn('max_nilai', function ($row) {
-            //     return $row->java_class_name ? $row->java_class_name : '';
-            // });
-
-            // $table->addColumn('min_nilai', function ($row) {
-            //     return $row->java_class_name ? $row->java_class_name : '';
-            // });
-
             $table->editColumn('java_exercise_id', function ($row) {
                 return $row->javaExercise ? $row->javaExercise->name  : '';
             });

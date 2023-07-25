@@ -22,13 +22,7 @@ class StudentJavaLearningResultController extends Controller
             $table->addColumn('placeholder', '&nbsp;');
             $table->addColumn('actions', '&nbsp;');
             $table->addColumn('hasil', function ($row) {
-                // $status = $row->testCaseStatus();
-
                 return $row->topicGrading();
-                // $parts = explode('(', $status);
-                // $value = isset($parts[1]) ? trim($parts[1]) : '';
-                // $result = rtrim($value, ' test)');
-                // return $status;
             });
             $table->editColumn('actions', function ($row) {
                 $enabledCruds = ['show'];
@@ -80,7 +74,7 @@ class StudentJavaLearningResultController extends Controller
             $query = JavaExerciseTopic::with('javaExercise')->where('java_exercise_id', $javaExercise->id)->orderBy('id')
                 ->select(sprintf('%s.*', (new JavaExerciseTopic())->table));
             $table = Datatables::of($query);
-
+                  
             $table->addColumn('placeholder', '&nbsp;');
             $table->addColumn('actions', '&nbsp;');
 
@@ -105,7 +99,7 @@ class StudentJavaLearningResultController extends Controller
 
                 return $doActions;
             });
-
+            // dd($query);
             $table->editColumn('id', function ($row) {
                 return $row->id ? $row->id : '';
             });
@@ -122,6 +116,19 @@ class StudentJavaLearningResultController extends Controller
 
             $table->editColumn('trying_times', function ($row) {
                 return $row->tryingNumber();
+            });
+
+            $table->addColumn('results', function ($row){
+                $totalScore = 0;
+                $pattern = '/Total Score: (\d+)/';
+                $report = JavaExerciseTopicUser::with('user')->where([
+                    'java_exercise_topic_id' => $row->id,
+                    'user_id' => Auth::id(),
+                ])->orderBy('created_at', 'desc')->first();
+                if ($report && preg_match($pattern, $report->report, $matches)) {
+                    $totalScore = intval($matches[1]);
+                } 
+                return $totalScore;
             });
 
             $table->rawColumns(['actions', 'placeholder', 'file_path', 'test_path']);

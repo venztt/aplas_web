@@ -54,10 +54,6 @@
                                             <input type="number" class="form-control" value="{{$exerciseTopic->percobaan}}" min="0" name="percobaan"/>
                                         </div>
                                         <div class="form-group">
-                                            <label for="max">Nilai Maksimal</label>
-                                            <input type="number" class="form-control" value="{{$exerciseTopic->max}}" min="0" name="max"/>
-                                        </div>
-                                        <div class="form-group">
                                             <label for="min">Nilai Minimal</label>
                                             <input type="number" class="form-control" value="{{$exerciseTopic->min}}" min="0" name="min"/>
                                         </div>

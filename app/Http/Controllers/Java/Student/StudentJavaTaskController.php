@@ -124,12 +124,15 @@ class StudentJavaTaskController extends Controller
 
     public function runTest($path, $classname)
     {
-        $report = null;
+    
         if ($this->settings) {
+            
             exec(escapeshellarg($this->settings->java_path . DIRECTORY_SEPARATOR . "java.exe") . " -cp " .
                 $path . ";" . $this->settings->java_junit_path . ";" . $this->settings->java_hamcrest_path . " org.junit.runner.JUnitCore " .
                 $classname . "Test" . " 2>&1", $report);
+            
         }
+
 
         return $report;
     }

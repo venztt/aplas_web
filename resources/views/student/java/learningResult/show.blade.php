@@ -104,6 +104,7 @@
                                     <th>Nama</th>
                                     <th style="width: 10%">Test Path</th>
                                     <th style="width: 10%">Jumlah Percobaan</th>
+                                    <th style="width: 10%">Hasil</th>
                                     <th style="width: 10%">Aksi</th>
                                 </tr>
                                 </thead>
@@ -140,6 +141,7 @@
                     {data: 'name', name: 'name'},
                     {data: 'test_path', name: 'test_path'},
                     {data: 'trying_times', name: 'trying_times'},
+                    {data: 'results', name: 'results'},
                     {data: 'actions', name: '{{ trans('global.actions') }}'}
                 ],
                 orderCellsTop: true,

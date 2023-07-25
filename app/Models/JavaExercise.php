@@ -6,6 +6,7 @@ use \DateTimeInterface;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Models\JavaExerciseTopicUser;
+use Illuminate\Support\Facades\Auth;
 
 class JavaExercise extends Model
 {
@@ -55,21 +56,40 @@ class JavaExercise extends Model
     public function topicGrading(): int
     {
         
+        
+        // $topics = JavaExerciseTopic::with('javaExercise')->where('java_exercise_id', $this->id)->get();
+        // $allvalue = 0;
+        // // dd($topics);
+        // foreach ($topics as $topic) {
+        //     $topicsUser = JavaExerciseTopicUser::where('java_exercise_topic_id', $topic->id)->where('user_id', auth()->id())->get()->count();
+        //     // $topicsUser = JavaExerciseTopicUser::where('java_exercise_topic_id', $topic->id)->pluck('report');//ikicontohe cel cuman aku gangerti bener gak e soale gaiso di delok e
+        //     // dd($topicsUser);
+        //     if($topicsUser == 0){
+
+        //     }elseif($topicsUser < $topic->percobaan){
+        //         $allvalue += $topic->max;
+        //     }else{
+        //         $allvalue += $topic->min;
+        //     }
+        // }
+        // // return response()->json($topics);
+
+        $totalScore = 0;
+        $pattern = '/Total Score: (\d+)/';
+
         $topics = JavaExerciseTopic::with('javaExercise')->where('java_exercise_id', $this->id)->get();
-        $allvalue = 0;
-
         foreach ($topics as $topic) {
-            $topicsUser = JavaExerciseTopicUser::where('java_exercise_topic_id', $topic->id)->where('user_id', auth()->id())->get()->count();
-            if($topicsUser == 0){
+            $report = JavaExerciseTopicUser::with('user')->where([
+                'java_exercise_topic_id' => $topic->id,
+                'user_id' => Auth::id(),
+            ])->orderBy('created_at', 'desc')->first();
 
-            }elseif($topicsUser < $topic->percobaan){
-                $allvalue += $topic->max;
-            }else{
-                $allvalue += $topic->min;
-            }
+            if ($report && preg_match($pattern, $report->report, $matches)) {
+                $totalScore += intval($matches[1]);
+            } 
         }
 
-        return $allvalue;
+        return $totalScore == 0 ? $totalScore : $totalScore  / $this->topicWorkedOn();
     }
 
     public function topicPassedTeacher(): int
