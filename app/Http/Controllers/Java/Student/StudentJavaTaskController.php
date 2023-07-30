@@ -132,8 +132,6 @@ class StudentJavaTaskController extends Controller
                 $classname . "Test" . " 2>&1", $report);
             
         }
-
-
         return $report;
     }
 }

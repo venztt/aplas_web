@@ -7,6 +7,7 @@ use App\Models\JavaExercise;
 use App\Models\JavaExerciseFeedback;
 use App\Models\JavaExerciseTopic;
 use App\Models\JavaExerciseTopicUser;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\Facades\DataTables;
@@ -15,6 +16,12 @@ class StudentJavaLearningResultController extends Controller
 {
     public function index(Request $request)
     {
+        if($request->id_student){
+            $username = User::find($request->id_student)->name;
+        } else {
+            $username = User::find(Auth::user()->id)->name;
+        }
+
         if ($request->ajax()) {
             $query = JavaExercise::query()->select(sprintf('%s.*', (new JavaExercise())->table));
             $table = Datatables::of($query);
@@ -57,15 +64,21 @@ class StudentJavaLearningResultController extends Controller
             return $table->make(true);
         }
 
-        return view('student.java.learningResult.index');
+        return view('student.java.learningResult.index', compact('username'));
     }
 
-    public function show(JavaExercise $javaExercise)
+    public function show(JavaExercise $javaExercise, Request $request)
     {
-        $feedback = JavaExerciseFeedback::where('java_exercise_id', $javaExercise->id)
-            ->where('user_id', auth()->id())->first();
+        if($request->id_student){
+            $user = User::find($request->id_student);
+        } else {
+            $user = Auth::user();
+        }
 
-        return view('student.java.learningResult.show', compact('javaExercise', 'feedback'));
+        $feedback = JavaExerciseFeedback::where('java_exercise_id', $javaExercise->id)
+            ->where('user_id', $user->id)->first();
+
+        return view('student.java.learningResult.show', compact('javaExercise', 'feedback', 'user'));
     }
 
     public function topicAdapter(Request $request, JavaExercise $javaExercise)

@@ -39,6 +39,16 @@ Route::group(['prefix' => 'teacher/java', 'as' => 'teacher.java.', 'namespace' =
     Route::get('exercise-topic-users/{javaExercise}/topic-adapter', 'JavaExerciseTopicUserController@topicAdapter')->name('exerciseTopicUsers.topicAdapter');
 
     Route::get('exercise-topic-result/{javaExerciseTopic}', 'JavaExerciseTopicUserController@resultShow')->name('exerciseTopicResult.show');
+
+    Route::get('learning-result', 'StudentJavaLearningResultController@index')->name('learning-result.index');
+
+    Route::get('learning-result/{javaExercise}', 'StudentJavaLearningResultController@show')->name('learning-result.show');
+
+    Route::get('learning-result/{javaExercise}/topic-adapter', 'StudentJavaLearningResultController@topicAdapter')->name('learning-result.topicAdapter');
+
+    Route::get('learning-result/{javaExercise}/feedback', 'StudentJavaLearningResultController@feedback')->name('learning-result.feedback');
+
+    Route::post('learning-result/{javaExercise}/feedback-handle', 'StudentJavaLearningResultController@feedbackHandler')->name('learning-result.feedbackPost');
 });
 
 

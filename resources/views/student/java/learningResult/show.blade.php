@@ -30,7 +30,7 @@
                 <div class="col-12">
                     <div class="callout callout-info">
                         <h5><i class="fas fa-info"></i> Note:</h5>
-                        Silahkan pilihlah topic yang ingin anda pelajari
+                        Nama : {{$user->name}}
                     </div>
                 </div>
             </div>

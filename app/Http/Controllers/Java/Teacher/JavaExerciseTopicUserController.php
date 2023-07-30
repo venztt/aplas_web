@@ -14,22 +14,59 @@ class JavaExerciseTopicUserController extends Controller
 {
     public function index(Request $request)
     {
+        // if ($request->ajax()) {
+        //     $query = JavaExercise::query()->select(sprintf('%s.*', (new JavaExercise())->table));
+        //     $table = Datatables::of($query);
+
+        //     $table->addColumn('placeholder', '&nbsp;');
+        //     $table->addColumn('actions', '&nbsp;');
+
+        //     $table->editColumn('actions', function ($row) {
+        //         $enabledCruds = ['show'];
+        //         $crudRoutePart = 'teacher.java.exerciseTopicUsers';
+
+        //         return view('partials.datatableActions', compact(
+        //             'row',
+        //             'enabledCruds',
+        //             'crudRoutePart'
+        //         ));
+        //     });
+
+        //     $table->editColumn('id', function ($row) {
+        //         return $row->id ? $row->id : '';
+        //     });
+
+        //     $table->addColumn('name', function ($row) {
+        //         return $row->name ? $row->name : '';
+        //     });
+
+        //     $table->editColumn('grade', function ($row) {
+        //         return $row->grade ? $row->grade : '';
+        //     });
+
+        //     $table->editColumn('module_path', function ($row) {
+        //         return $row->module_path ? '<a class="btn btn-success" href="' .
+        //             url('storage' . DIRECTORY_SEPARATOR . strstr($row->module_path, 'java')) . '">Download</a>' : 'No file found';
+        //     });
+
+        //     $table->rawColumns(['actions', 'placeholder', 'module_path']);
+
+        //     return $table->make(true);
+        // }
+
+        // return view('teacher.java.exerciseTopicUser.index');
+
         if ($request->ajax()) {
-            $query = JavaExercise::query()->select(sprintf('%s.*', (new JavaExercise())->table));
+            $query = User::where([['roleid', 'student']])->get();
             $table = Datatables::of($query);
 
             $table->addColumn('placeholder', '&nbsp;');
             $table->addColumn('actions', '&nbsp;');
 
             $table->editColumn('actions', function ($row) {
-                $enabledCruds = ['show'];
-                $crudRoutePart = 'teacher.java.exerciseTopicUsers';
+                $button = '<a class="btn btn-warning mr-1" href="'.route('teacher.java.learning-result.index', ["id_student"=>$row->id ]).'"><i class="fa fa-eye"></i> </a>';
 
-                return view('partials.datatableActions', compact(
-                    'row',
-                    'enabledCruds',
-                    'crudRoutePart'
-                ));
+                return $button;
             });
 
             $table->editColumn('id', function ($row) {
@@ -40,21 +77,12 @@ class JavaExerciseTopicUserController extends Controller
                 return $row->name ? $row->name : '';
             });
 
-            $table->editColumn('grade', function ($row) {
-                return $row->grade ? $row->grade : '';
-            });
-
-            $table->editColumn('module_path', function ($row) {
-                return $row->module_path ? '<a class="btn btn-success" href="' .
-                    url('storage' . DIRECTORY_SEPARATOR . strstr($row->module_path, 'java')) . '">Download</a>' : 'No file found';
-            });
-
-            $table->rawColumns(['actions', 'placeholder', 'module_path']);
+            $table->rawColumns(['actions', 'placeholder']);
 
             return $table->make(true);
         }
 
-        return view('teacher.java.exerciseTopicUser.index');
+        return view('teacher.java.exerciseTopicUser.mahasiswa');
     }
 
     public function show(JavaExercise $javaExercise)

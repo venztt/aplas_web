@@ -29,7 +29,8 @@
                 <div class="col-12">
                     <div class="callout callout-info">
                         <h5><i class="fas fa-info"></i> Note:</h5>
-                        Dibawah ini merupakan rangkuman hasil anda mengerjakan exercise dan topic di dalam sistem ini.
+                        Dibawah ini merupakan rangkuman hasil anda mengerjakan exercise dan topic di dalam sistem ini. <br>
+                        Nama Mahasiswa : {{$username}}
                     </div>
                 </div>
             </div>
