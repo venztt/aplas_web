@@ -79,6 +79,7 @@
                                 <tr class="text-center">
                                     <th style="width: 4%">#</th>
                                     <th>Nama</th>
+                                    <th>Tingkatan</th>
                                     <th>Deskripsi</th>
                                     <th style="width: 10%">Test Path</th>
                                     <th style="width: 10%">Java Exercise</th>
@@ -117,6 +118,7 @@
                 columns: [
                     {data: 'id', name: 'id'},
                     {data: 'name', name: 'name'},
+                    {data: 'tingkatan', name: 'tingkatan'},
                     {data: 'description', name: 'description'},
                     {data: 'test_path', name: 'test_path'},
                     {data: 'java_exercise_id', name: 'java_exercise_id'},

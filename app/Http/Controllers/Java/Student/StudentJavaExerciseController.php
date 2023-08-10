@@ -103,6 +103,11 @@ class StudentJavaExerciseController extends Controller
                 return $row->description ? $row->description : '';
             });
 
+            $table->addColumn('tingkatan', function ($row) {
+                return $row->tingkatan ? ucfirst($row->tingkatan) : '';
+            });
+
+
             $table->editColumn('file_path', function ($row) {
                 return $row->file_path ? '<a class="btn btn-success" href="' .
                     url('storage' . DIRECTORY_SEPARATOR . strstr($row->file_path, 'java')) . '">Download</a>' : 'No file found';

@@ -38,6 +38,14 @@
                                                    placeholder="Enter exercise name"/>
                                         </div>
                                         <div class="form-group">
+                                            <label for="test_path">Tingkatan</label>
+                                            <select name="tingkatan" class="form-control">
+                                                    <option value="Dasar"> Dasar</option>
+                                                    <option value="Menengah"> Menengah</option>
+                                                    <option value="Mahir"> Mahir</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
                                             <label for="description">Topic Description</label>
                                             <textarea class="form-control" name="description">{{ old('description', $exerciseTopic->description) }}</textarea>
                                         </div>

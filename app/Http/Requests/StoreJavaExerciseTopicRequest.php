@@ -26,6 +26,10 @@ class StoreJavaExerciseTopicRequest extends FormRequest
                 'string',
                 'required',
             ],
+            'tingkatan' => [
+                'string',
+                'required',
+            ],
         ];
     }
 }
